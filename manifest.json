@@ -1,0 +1,35 @@
+{
+  "name": "U-Nbl0ck",
+  "version": "1.0",
+		
+  "manifest_version": 2,
+  "description": "List utube videos!",
+  
+  "permissions": [
+    "<all_urls>","tabs","activeTab"
+  ],
+
+  "browser_action": {
+    "default_icon": "icon.PNG",
+	"default_title": "Utube!",
+	"default_popup": "my.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": [ "jQuery.js", "AddToUtb.js"],
+      "run_at": "document_start",
+      "all_frames" : true,
+      "match_about_blank" : true
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": [ "jQuery.js", "AddToUrl.js"],
+      "run_at": "document_start",
+      "all_frames" : true,
+      "match_about_blank" : true
+    }
+  ]
+
+}

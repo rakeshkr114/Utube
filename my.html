@@ -1,0 +1,77 @@
+
+<html>
+<head>
+<style>
+ body {
+        width: 300px;
+    }
+
+.button {
+  display: inline-block;
+  padding: 2px 5px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 0px;
+  box-shadow: 0 5px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(2px);
+}
+//.button {width: 100%;}	
+
+
+.navbar {
+  position: fixed;
+  top: 10;
+}
+
+
+
+</style>
+
+	<script src="findItems.js" type="text/javascript"></script> 
+	<script src="jQuery.js" type="text/javascript"></script>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">  -->
+</head>	
+	
+<body><p>
+	<center>
+	<div style="position: fixed; top: 10px; left:7%;z-index:1;">
+	<div id="buttons">
+		<label> 
+			<input id="query" type="text" placeholder="Type here..." autofocus/>
+			<button id="srch_btn">Search</button> 
+		</label>
+    	</div>
+	</div>
+	
+	<div id="hide-btn" style="position: fixed; top: 40px; left:25%;z-index:1;">
+		  <!-- <h6><button class="button" id="play-btn"></button></h6> -->
+		<button class="ytp-play-button ytp-button" aria-label="Play" id="play-btn" title =""><svg height="20" version="1.1" viewBox="0 0 36 36" width="60"><path class="ytp-svg-fill" d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z" id="ytp-id-97"></path></svg></button>
+		<button class="ytp-next-button ytp-button" aria-label="Next" id="next-btn" title ="" ><svg height="20" version="1.1" viewBox="0 0 36 36" width="60"><path class="ytp-svg-fill" d="M 12,24 20.5,18 12,12 V 24 z M 22,12 v 12 h 2 V 12 h -2 z" id="ytp-id-97"></path></svg></button>
+	</div>
+
+
+
+    <div id="search-container">
+    </div>
+	
+	
+	<br><br><br>
+	<h4 id="demo"></h4>
+	</center>
+</body>
+</html>
