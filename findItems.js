@@ -113,7 +113,7 @@ chrome.tabs.query({ "url": "https://www.youtube.com/*" }, function (tabs) {
 			   video_id=vd.id.videoId;
 			   title=vd.snippet.title;
 			   img_url=vd.snippet.thumbnails.medium.url;
-
+			   img_url=img_url+"?campaign";
 			   //description=vd.snippet.description;
 			   channelTitle=vd.snippet.channelTitle;
 
@@ -127,7 +127,7 @@ chrome.tabs.query({ "url": "https://www.youtube.com/*" }, function (tabs) {
 					  <div class="stats">\
 							<div class="media">\
 							 <a name="thumbnail'+video_id+'"  href="https://www.youtube.com/watch?v='+video_id+'">  \
-							  <img class="mr-3" src="'+img_url+'" alt="Generic placeholder image">\
+							  <img class="mr-3" src="'+img_url+'" alt="Image">\
 								<h5 class="mt-0">'+title+'</h5>\
 								</a> '+channelTitle+'\
 							</div>\
