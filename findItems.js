@@ -12,9 +12,7 @@ document.getElementById("hide-btn").style.display = "none";
 
 var api;
 var tab;
-
-
-
+var viewCount;
 
 
 
@@ -105,12 +103,16 @@ chrome.tabs.query({ "url": "https://www.youtube.com/*" }, function (tabs) {
 	    // don't call if api is null
 	    if(api!=null)
 		$.get(api, function(data) {
-
+			
 			var video_list="";
 			var i=0;
 			//iterate over each items or vidoes
 			data.items.forEach(function(vd) {
 			   video_id=vd.id.videoId;
+			   
+			   //getCountInMillions(video_id);
+			   //console.log("Views:: "+viewCount);
+			   
 			   title=vd.snippet.title;
 			   img_url=vd.snippet.thumbnails.medium.url;
 			   img_url=img_url+"?campaign";
@@ -168,9 +170,16 @@ chrome.tabs.query({ "url": "https://www.youtube.com/*" }, function (tabs) {
 
 	} // end of get_api_data
 
-	// call create_search_api fn on button click
-	document.getElementById('srch_btn').onclick = create_search_api;
+	// call scrollUpToTop which then calls create_search_api fn on button click
+	document.getElementById('srch_btn').onclick = scrollUpToTop;
 
+	//To scroll up to top once new search results arrive
+	function scrollUpToTop() {
+ 		document.body.scrollTop = 0;
+		document.documentElement.scrollTop = 0;
+		create_search_api();
+	}
+	
 	// link input text field with "Enter" button
 	document.getElementById("query")
 		.addEventListener("keyup", function(event) {
@@ -219,20 +228,56 @@ chrome.tabs.query({ "url": "https://www.youtube.com/*" }, function (tabs) {
 				attr_value;
 				`
        		},function (attr_value) { // Execute your code
-			if(attr_value[0] != null){
-				//document.getElementById("next-btn").innerHTML="Play";
-				//document.getElementsByClassName("ytp-next-button ytp-button")[0].setAttribute("title", attr_value[0]);
-			}
-			else{
-				console.log("Null");
-				//document.getElementsByClassName("ytp-svg-fill")[0].setAttribute("d", "M 12,26 16,26 16,10 12,10 z M 21,26 25,26 25,10 21,10 z");
-			}
         	});
 	}
+	
+	// Skip Ads
+	document.getElementById("skip-btn").onclick = function(){
+    		chrome.tabs.executeScript(tab.id, {
+            	code: ` var attr_value=document.getElementsByClassName("videoAdUiSkipButton videoAdUiAction videoAdUiFixedPaddingSkipButton")[0].click();
+				attr_value;
+				`
+       		},function (attr_value) { // Execute your code
+        	});
+	}
+	
+	
+	
 
-
-
-
+	//function to get the views count: Not beung used as it slows down the speed due to enabled synchronous
+	function getCountInMillions(video_id) {
+		jQuery.ajax({
+			url: "https://www.googleapis.com/youtube/v3/videos?part=statistics&id="+video_id+"&key="+API_KEY ,
+			success: function (response) {
+					var viewCountStr=response.items[0].statistics.viewCount;
+					var viewCountNmbr = Number(viewCountStr);
+					var calculatedViewCount;
+					
+					if(viewCountNmbr<999999999){
+						//convert in millions
+						calculatedViewCount=Math.floor(viewCountNmbr/1000000);
+						calculatedViewCount=calculatedViewCount+"M";
+					}
+					else{
+						//convert in Billions
+						calculatedViewCount=Math.floor(viewCountNmbr/1000000000);
+						calculatedViewCount=calculatedViewCount+"B";
+					}
+					//console.log(viewCount +" "+video_id );
+					console.log(video_id+" "+calculatedViewCount);	
+					//return viewCount;
+					//var x=Math.floor(viewCount);
+					//console.log(x);
+					viewCount=calculatedViewCount;
+			},
+			async: false	//To make the call synchronous
+		});
+		console.log("views2: "+viewCount);		
+    }
+	
+	
+	
+	
 
 
 	//document.anchors.addEventListener("click", handler);
