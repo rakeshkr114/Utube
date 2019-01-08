@@ -73,7 +73,7 @@ chrome.tabs.query({ "url": "https://www.youtube.com/*" }, function (tabs) {
             		code: ` var attr_value = new Array();
 				attr_value.push(document.getElementsByClassName("ytp-next-button ytp-button")[0].getAttribute("data-tooltip-text"));
 				attr_value.push(document.getElementsByClassName("ytp-play-button ytp-button")[0].getAttribute("aria-label")); // pause / play status in the begining
-				attr_value.push(document.getElementsByClassName("style-scope ytd-video-primary-info-renderer")[4].innerHTML);
+				attr_value.push(document.getElementsByClassName("style-scope ytd-video-primary-info-renderer")[6].innerHTML);
 				attr_value;
 				`
 	},function (attr_value) { // Execute your code
@@ -244,7 +244,7 @@ chrome.tabs.query({ "url": "https://www.youtube.com/*" }, function (tabs) {
 	
 	
 
-	//function to get the views count: Not beung used as it slows down the speed due to enabled synchronous
+	//function to get the views count: Not being used as it slows down the speed due to enabled synchronous
 	function getCountInMillions(video_id) {
 		jQuery.ajax({
 			url: "https://www.googleapis.com/youtube/v3/videos?part=statistics&id="+video_id+"&key="+API_KEY ,
